@@ -13,6 +13,7 @@ public class QuizActivity extends ActionBarActivity {
 	private Button mTrueButton;
 	private Button mFalseButton;
 	private Button mNextButton;
+	private Button mPrevButton;
 	private TextView mQuestionTextView;
 	private TrueFalse[] mQuestionBank = new TrueFalse[]{
 			new TrueFalse(R.string.question_oceans, true),
@@ -49,8 +50,16 @@ public class QuizActivity extends ActionBarActivity {
 		mTrueButton = (Button)findViewById(R.id.true_button);
 		mFalseButton = (Button)findViewById(R.id.false_button);
 		updateQuestion();
-		mTrueButton.setOnClickListener(new View.OnClickListener() {
+		mQuestionTextView.setOnClickListener(new View.OnClickListener() {
 			
+			@Override
+			public void onClick(View v) {
+				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+				updateQuestion();
+			}
+		});
+		
+		mTrueButton.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub		
@@ -59,11 +68,9 @@ public class QuizActivity extends ActionBarActivity {
 			}
 		});
 		
-		mFalseButton.setOnClickListener(new View.OnClickListener() {
-			
+		mFalseButton.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				//Toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
 				checkAnswer(false);
 			}
@@ -71,7 +78,6 @@ public class QuizActivity extends ActionBarActivity {
 		
 		mNextButton = (Button) findViewById(R.id.next_button);
 		mNextButton.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -80,6 +86,18 @@ public class QuizActivity extends ActionBarActivity {
 				
 			}
 		});
+		
+		mPrevButton = (Button) findViewById(R.id.prev_button);
+		mPrevButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mCurrentIndex = (mCurrentIndex + mQuestionBank.length - 1) % mQuestionBank.length;
+				updateQuestion();
+				
+			}
+		});
+		
 	}
 
 	@Override
