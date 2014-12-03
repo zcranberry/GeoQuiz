@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 public class QuizActivity extends ActionBarActivity {
 	private static final String TAG ="QuizActivity";
+	private static final String KEY_INDEX = "index";
 	private Button mTrueButton;
 	private Button mFalseButton;
 	private Button mNextButton;
@@ -24,6 +25,7 @@ public class QuizActivity extends ActionBarActivity {
 	};
 	
 	private int mCurrentIndex = 0;
+	
 	
 	private void updateQuestion(){
 		int question = mQuestionBank[mCurrentIndex].getQuestion();
@@ -77,6 +79,10 @@ public class QuizActivity extends ActionBarActivity {
 		
 		mTrueButton = (Button)findViewById(R.id.true_button);
 		mFalseButton = (Button)findViewById(R.id.false_button);
+		
+		if(savedInstanceState != null){
+			mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+		}
 		updateQuestion();
 		mQuestionTextView.setOnClickListener(new View.OnClickListener() {
 			
@@ -124,10 +130,14 @@ public class QuizActivity extends ActionBarActivity {
 				updateQuestion();
 				
 			}
-		});
-		
+		});	
 	}
-
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState){
+		super.onSaveInstanceState(savedInstanceState);
+		Log.i(TAG, "onSaveInstanceState");
+		savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
