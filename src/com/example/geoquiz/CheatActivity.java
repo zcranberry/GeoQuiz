@@ -34,10 +34,10 @@ public class CheatActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (mAnswerIsTrue){
-					mAnswerTextView.setText(R.id.true_button);
+					mAnswerTextView.setText(R.string.true_button);
 				}
 				else{
-					mAnswerTextView.setText(R.id.false_button);
+					mAnswerTextView.setText(R.string.false_button);
 				}
 				setAnswerShownResult(true);
 			}
