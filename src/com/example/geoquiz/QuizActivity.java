@@ -17,6 +17,7 @@ public class QuizActivity extends ActionBarActivity {
 	private Button mFalseButton;
 	private Button mNextButton;
 	private Button mCheatButton;
+	private boolean mIsCheater;
 	//private ImageButton mPrevButton;
 	private TextView mQuestionTextView;
 	private TrueFalse[] mQuestionBank = new TrueFalse[]{
@@ -27,6 +28,14 @@ public class QuizActivity extends ActionBarActivity {
 	
 	private int mCurrentIndex = 0;
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		if (data == null){// didn't cheat
+			return;
+		}else{
+			mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+		}
+	}
 	
 	private void updateQuestion(){
 		int question = mQuestionBank[mCurrentIndex].getQuestion();
@@ -34,13 +43,18 @@ public class QuizActivity extends ActionBarActivity {
 		Log.d(TAG, "updating question text for question #" + mCurrentIndex, new Exception());
 	}
 	
-	private void checkAnswer(boolean userPressedTrue){
+	private void checkAnswer(boolean userPressedTrue) {
 		boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
 		int messageResId = 0;
-		if (userPressedTrue == answerIsTrue){
-			messageResId = R.string.correct_toast;
-		}else {
-			messageResId = R.string.incorrect_toast;
+
+		if (mIsCheater) {
+			messageResId = R.string.judgement_toast;
+		} else {
+			if (userPressedTrue == answerIsTrue) {
+				messageResId = R.string.correct_toast;
+			} else {
+				messageResId = R.string.incorrect_toast;
+			}
 		}
 		Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
 	}
@@ -120,6 +134,7 @@ public class QuizActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+				mIsCheater = false;
 				updateQuestion();
 				
 			}
@@ -132,7 +147,7 @@ public class QuizActivity extends ActionBarActivity {
 				Intent i = new Intent(QuizActivity.this, CheatActivity.class);
 				boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
 				i.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-				startActivity(i);
+				startActivityForResult(i, 0);
 			}
 		});
 		
