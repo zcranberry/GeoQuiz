@@ -16,7 +16,7 @@ public class QuizActivity extends ActionBarActivity {
 	private Button mTrueButton;
 	private Button mFalseButton;
 	private Button mNextButton;
-	private ImageButton mPrevButton;
+	//private ImageButton mPrevButton;
 	private TextView mQuestionTextView;
 	private TrueFalse[] mQuestionBank = new TrueFalse[]{
 			new TrueFalse(R.string.question_oceans, true),
@@ -30,6 +30,7 @@ public class QuizActivity extends ActionBarActivity {
 	private void updateQuestion(){
 		int question = mQuestionBank[mCurrentIndex].getQuestion();
 		mQuestionTextView.setText(question);
+		Log.d(TAG, "updating question text for question #" + mCurrentIndex, new Exception());
 	}
 	
 	private void checkAnswer(boolean userPressedTrue){
@@ -121,7 +122,7 @@ public class QuizActivity extends ActionBarActivity {
 			}
 		});
 		
-		mPrevButton = (ImageButton) findViewById(R.id.prev_button);
+		/*mPrevButton = (ImageButton) findViewById(R.id.prev_button);
 		mPrevButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -130,7 +131,7 @@ public class QuizActivity extends ActionBarActivity {
 				updateQuestion();
 				
 			}
-		});	
+		});	*/
 	}
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState){
