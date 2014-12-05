@@ -17,7 +17,7 @@ public class QuizActivity extends ActionBarActivity {
 	private Button mFalseButton;
 	private Button mNextButton;
 	private Button mCheatButton;
-	private boolean mIsCheater;
+	private static boolean mIsCheater;
 	//private ImageButton mPrevButton;
 	private TextView mQuestionTextView;
 	private TrueFalse[] mQuestionBank = new TrueFalse[]{
