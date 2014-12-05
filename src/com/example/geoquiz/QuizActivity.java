@@ -33,7 +33,7 @@ public class QuizActivity extends ActionBarActivity {
 		if (data == null){// didn't cheat
 			return;
 		}else{
-			mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+			mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);//在这里取回传回的结果
 		}
 	}
 	
@@ -86,7 +86,7 @@ public class QuizActivity extends ActionBarActivity {
 	}
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {//现在知道这个savedInstanceStated的作用了
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_quiz);
 		
@@ -170,12 +170,12 @@ public class QuizActivity extends ActionBarActivity {
 		Log.i(TAG, "onSaveInstanceState");
 		savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
 	}
-	@Override
+/*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.quiz, menu);
 		return true;
-	}
+	}*/
 
 	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
