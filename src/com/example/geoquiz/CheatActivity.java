@@ -14,6 +14,7 @@ public class CheatActivity extends Activity {
 	private boolean mAnswerIsTrue;
 	private TextView mAnswerTextView;
 	private Button mShowAnswer;
+	private static boolean mAnswerIsShowed = false;
 	
 	private void setAnswerShownResult(boolean isAnswerShown){
 		Intent data = new Intent();
@@ -28,8 +29,8 @@ public class CheatActivity extends Activity {
 		mAnswerTextView = (TextView) findViewById(R.id.answerTextView);
 		mShowAnswer = (Button)findViewById(R.id.showAnswerButton);
 		mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);//false是默认值
-		
-		setAnswerShownResult(false);//每道题首先设置为未偷看
+		//mAnswerIsShowed = false;
+		setAnswerShownResult(mAnswerIsShowed);//每道题首先设置为未偷看
 		
 		mShowAnswer.setOnClickListener(new View.OnClickListener() {	
 			@Override
@@ -40,7 +41,8 @@ public class CheatActivity extends Activity {
 				else{
 					mAnswerTextView.setText(R.string.false_button);
 				}
-				setAnswerShownResult(true);
+				mAnswerIsShowed = true;
+				setAnswerShownResult(mAnswerIsShowed);
 			}
 		});
 	}
