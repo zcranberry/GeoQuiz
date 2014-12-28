@@ -33,12 +33,12 @@ public class QuizActivity extends ActionBarActivity {
 		if (data == null){// didn't cheat
 			return;
 		}else{
-			mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);//在这里取回传回的结果
+			mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);//在这里取回传回的结果,和setResult配套，里面的多了一个getIntent步骤
 		}
 	}
 	
 	private void updateQuestion(){
-		int question = mQuestionBank[mCurrentIndex].getQuestion();
+		int question = mQuestionBank[mCurrentIndex].getQuestion();//里面存的是R里面的一个id,指代了一个字符串
 		mQuestionTextView.setText(question);
 		Log.d(TAG, "updating question text for question #" + mCurrentIndex, new Exception());
 	}
